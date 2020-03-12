@@ -92,6 +92,32 @@ router.route('/produtos')
         })
     })
 
+
+    /* 4) Metodo: Atualizar por Id (acessar em: PUT http://localhost:8000/api/produto/:produto_id) */
+    .put((req,res)=>{
+        
+        //primeiro: para atualizar, precisamos achar 'Id' do 'Produto':
+        Produto.findById(req.params.produto_id, (error, produto)=>{
+            if(error)
+                res.send('ID do produto não encontrada ... ' + error)
+
+                //segundo: atualizar os dados 
+                produto.nome = req.body.nome
+                produto.preco = req.body.preco
+                produto.descricao = req.body.descricao
+
+            //terceiro: Salvar os valores dos dados
+                produto.save((error)=>{
+                    if(error)
+                        res.send('Erro ao atualizar o produto...... ' + error)
+
+                    res.json({message: 'Produto atualizado com sucesso!'})
+            })
+
+
+        })
+    })
+
 //definindo um padrão das rotas prefixadas: '/api'
 app.use('/api/', router)
 
