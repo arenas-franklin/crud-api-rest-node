@@ -6,6 +6,10 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const Produto = require('./app/models/produto')
+
+mongoose.connect('mongodb://localhost:27017/node-crud-api-produtos')
 
 //Configuração da variável app para usar  o 'bodyParse()'
 app.use(bodyParser.urlencoded({extended: true}))
