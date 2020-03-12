@@ -118,6 +118,20 @@ router.route('/produtos')
         })
     })
 
+    /* 5) Método: excluir por Id (acessar: http://localhost:8000/api/produto/:produto_id) */
+    .delete((req,res)=>{
+
+        Produto.remove({
+            _id: req.params.produto_id
+        },(error)=>{
+            if(error)
+                res.send('Id do produtod não encontrado...' + error)
+
+            res.json({mesage: 'Produto excluir com Sucesso!'})
+            
+        })
+    })
+
 //definindo um padrão das rotas prefixadas: '/api'
 app.use('/api/', router)
 
