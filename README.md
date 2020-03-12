@@ -1,9 +1,3 @@
-<style>
-    p{
-        font-size:14pt;
-
-    }
-</style>
 
 
 <h1> Aplicação API RESTful CRUD  com Node + Express & MongoDB</h1>
