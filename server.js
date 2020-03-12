@@ -9,10 +9,15 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Produto = require('./app/models/produto')
 
-mongoose.connect(
-    'mongodb://localhost:27017/node-crud-api-produtos',
-     {useNewUrlParser:true}
-     ).catch(error=> handleError(error))
+//configurando o mongoose
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost:27017/node-crud-api-produtos',
+     {useMongoClient:true} 
+     ).then(()=>{
+        console.log("bando conectado com sucesso!!!!")
+     }).catch((err)=>{
+         console.log("houve um erro ao se conectar ao mongoDB: "+ err)
+     })
 
 //Configuração da variável app para usar  o 'bodyParse()'
 app.use(bodyParser.urlencoded({extended: true}))
@@ -39,7 +44,27 @@ router.get('/', (req, res)=>{
 })
 
 //API's
+//=============================================================
 
+
+//Rotas que terminarem com '/produtos' (servir: Get ALL  & POST)
+router.route('/produtos')
+    
+    /* 1) Método: criar produto (acessar em Post http://localhost:8000/api/produtos)  */
+    .post((req,res)=>{
+        const produto = new Produto()
+
+        produto.nome = req.body.nome
+        produto.preco = req.body.preco
+        produto.descricao = req.body.descricao
+
+        produto.save((error)=>{
+            if(error)
+                res.send('Error ao tentar salvar o produto....' + error)
+            
+            res.json({message:'Produto Cadasstrado com Sucesso!'})
+        })
+    })
 
 
 //definindo um padrão das rotas prefixadas: '/api'
