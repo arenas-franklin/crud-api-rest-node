@@ -66,6 +66,16 @@ router.route('/produtos')
         })
     })
 
+    /*2) Metodo Selecinar Todos Produtos (acessar em GET http://localhost:8000/api/produto)  */
+    .get((req,res)=>{
+        Produto.find((error, produtos)=>{
+            if(error)
+                res.send('Erro ao tentar Selecionar Todos os Produtos ....' + error)
+
+                res.json(produtos)
+        })
+    })
+
 
 //definindo um padrão das rotas prefixadas: '/api'
 app.use('/api/', router)
