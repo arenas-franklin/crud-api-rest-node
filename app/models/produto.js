@@ -22,4 +22,4 @@ const ProdutoSchema = new Schema({
     descricao:String
 })
 
-module.exports = mongose.model('Produto', ProdutoSchema)
+module.exports = mongoose.model('Produto', ProdutoSchema)
